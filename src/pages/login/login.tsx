@@ -1,12 +1,17 @@
 import React, { FormEventHandler } from "react";
-import { useNavigate } from "react-router-dom";
-
 import cls from "./login.module.scss";
+// import {FaUser} from 'react-icons/fa'
+import {
+  AiOutlineUser,
+  AiOutlineLock,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
+
+let stl={color:'white' , fontSize:'2rem' , margin:'0 8px 0 10px'};
 
 const Login: React.FC = () => {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -17,42 +22,45 @@ const Login: React.FC = () => {
     const data = { email, password };
     console.log("data = ", data);
   };
-
   return (
     <div className={cls.wrapper}>
-      <h1 className={cls.title}>Login Component</h1>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            id='email'
-            placeholder='Your Email'
-            ref={emailRef}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            id='password'
-            placeholder='Your Password'
-            ref={passwordRef}
-          />
-        </div>
-        <Button />
-      </form>
-      <button
-        onClick={() =>
-          navigate("/register", { state: { name: "arslonbek", age: 20 } })
-        }>
-        to Register
-      </button>
+      <div className={cls.wrapper2}>
+        <form className={cls.form} onSubmit={onSubmit}>
+            <label htmlFor="email">Email</label>
+          <div className={cls.inputBox}>
+              <AiOutlineUser style={stl}/>
+            <input
+              className={cls.input}
+              type="email"
+              id="email"
+              placeholder="Your Email"
+              ref={emailRef}
+            />{" "}
+            <AiOutlineEyeInvisible  style={{fontSize:'2rem' , opacity:'0'}} />
+          </div>
+
+          <div className={cls.inputBox}>
+           
+              <AiOutlineLock style={stl} />
+            <input
+              className={cls.input}
+              type="password"
+              id="password"
+              placeholder="Your Password"
+              ref={passwordRef}
+            />
+            <AiOutlineEyeInvisible style={stl} />
+          </div>
+          {/* <p>Need help login in ?</p> */}
+          <div className={cls.inputBox}>
+            <button>Submit</button>
+          </div>
+        </form>
+        <div className={cls.right}></div>
+      </div>
+      <div></div>
     </div>
   );
 };
-export default Login;
 
-function Button() {
-  return <button>Submit</button>;
-}
+export default Login;
